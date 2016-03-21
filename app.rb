@@ -1,5 +1,10 @@
 require 'cinch'
 require_relative 'plugins/plugin_manager'
+require_relative 'migrations/initial'
+
+if !File.exist?('db/weather.db')
+  InitialMigration.migrate(:up)
+end
 
 cinch = Cinch::Bot.new do
   configure do |config|
