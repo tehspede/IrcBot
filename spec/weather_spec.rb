@@ -29,5 +29,6 @@ describe 'Instance of', Weather do
   it 'should return an error message if no location was found' do
     replies = get_replies(make_message(@bot, '!weather asgsdhdtjtjdjsjaehargafes'))
     expect(replies.last.text).to eq('No city was found with that location!')
+    p replies.last.text
   end
 end

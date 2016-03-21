@@ -47,13 +47,15 @@ class Weather
 
     save_location(user, location)
 
-    if JSON.load(open(url))['message'] == 'Error: Not found city'
+    xml = Nokogiri::XML(URI.parse(url + '&mode=xml').open)
+    parse_xml(xml)
+
+    if !(@city.any?)
       m.reply 'No city was found with that location!'
       return
     end
 
-    xml = Nokogiri::XML(open(url + '&mode=xml'))
-    parse_xml(xml)
+    p @city
 
     m.reply "WEATHER - #{@city}, #{@country} :: Current #{@temperature}C, #{@weather} :: Max: #{@max}C - Min: #{@min}C"
   end
