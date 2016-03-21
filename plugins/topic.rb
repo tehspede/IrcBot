@@ -5,27 +5,37 @@ class Topic
 
   match(/topic (.+)/, method: :topic)
 
-  def parse_channel(query)
+  def parse_channel(m, query)
     channel = Regexp.new('^(#\S+)\s', true).match(query)
-    channel.nil? ? false : channel[1]
+    if channel.nil?
+      m.reply 'No channel could be parsed! Please use the format "!topic <channel> <topic>"'
+      false
+    elsif !@bot.channels.include?(channel[1])
+      m.reply "I am not in the channel #{channel}"
+      false
+    else
+      channel[1]
+    end
   end
 
-  def parse_topic(query)
+  def parse_topic(m, query)
     topic = (/\s(.+)/).match(query)
-    topic.nil? ? false : topic[1]
+    if topic.nil?
+      m.reply 'No topic could be parsed! Please use the format "!topic <channel> <topic>"'
+      false
+    else
+      topic[1]
+    end
   end
 
   def topic(m, query)
-    channel = parse_channel(query)
-    topic = parse_topic(query)
+    channel = parse_channel(m, query)
+    topic = parse_topic(m, query)
 
-    if channel && topic
-      topic = parse_topic(query)
+    if channel && topic && @bot.channels.include?(channel)
       if Channel(channel).opped?(m.user.nick)
         Channel(channel).topic = topic
       end
-    else
-      m.reply 'No channel was recognised from your command.'
     end
   end
 end
