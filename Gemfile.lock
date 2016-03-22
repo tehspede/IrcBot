@@ -17,6 +17,8 @@ GEM
     arel (6.0.3)
     builder (3.2.2)
     cinch (2.3.1)
+    cinch-identify (1.7.0)
+      cinch (~> 2.0)
     cinch-test (0.1.1)
       cinch (~> 2)
     diff-lcs (1.2.5)
@@ -50,6 +52,7 @@ PLATFORMS
 DEPENDENCIES
   activerecord
   cinch
+  cinch-identify
   cinch-test
   json
   nokogiri
