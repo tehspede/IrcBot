@@ -62,7 +62,7 @@ class Ban
 
   def unban(m, query)
     @channel = parse_channel(m, query)
-    if @channel && Channel(@channel).opped?(m.user.nick)
+    if @channel && (Channel(@channel).opped?(m.user.nick) || ADMINS.include?(m.user.nick))
       @mask = parse_mask(query)
       if @mask
         Channel(@channel).unban(@mask)
