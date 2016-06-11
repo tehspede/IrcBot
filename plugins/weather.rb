@@ -22,6 +22,7 @@ class Weather
     @max = xml.xpath('//temperature/@max')
     @min = xml.xpath('//temperature/@min')
     @weather = xml.xpath('//weather/@value')
+    @windspeed = xml.xpath('//wind/speed/@value')
   end
 
   def save_location(user, location)
@@ -57,6 +58,6 @@ class Weather
 
     p @city
 
-    m.reply "WEATHER - #{@city}, #{@country} :: Current #{@temperature}C, #{@weather} :: Max: #{@max}C - Min: #{@min}C"
+    m.reply "WEATHER - #{@city}, #{@country} :: Current #{@temperature}C, #{@weather}, Wind Speed: #{@windspeed} m/s :: Max: #{@max}C - Min: #{@min}C"
   end
 end
