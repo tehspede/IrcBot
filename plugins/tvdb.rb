@@ -15,7 +15,7 @@ class Tvdb
   def id
     tvdb_id_search_url = 'http://thetvdb.com/api/GetSeries.php?seriesname='
     url = URI::encode(tvdb_id_search_url + @query)
-    Nokogiri::XML(open(url)).css('id').text
+    Nokogiri::XML(open(url)).css('id')[0].text
   end
 
   def get_url
